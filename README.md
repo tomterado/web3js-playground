@@ -16,3 +16,7 @@ Personally did a [Udemy Course](https://www.udemy.com/course/blockchain-develope
 Did a few of these to refresh my learning. 
 
 Enjoyed the thorough breakdown on [web3.js Util functions](https://www.youtube.com/watch?v=rXZSnUOhnwc&list=PLbbtODcOYIoFs0PDlTdxpEsZiyDR2q9aA&index=11&ab_channel=EatTheBlocks)
+
+## [Web3 Truffle Hooks + Drizzle - Eat the Blocks](https://www.youtube.com/watch?v=vYWMyOyrbYU&list=PLbbtODcOYIoHJQ9sTs0e8kn7YV39W9Vcp&index=4&ab_channel=EatTheBlocks)
+
+Enjoy React Hooks compared to legacy Class Components. Was a good in-depth walkthrough.
