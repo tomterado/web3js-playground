@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SimpleStorageContract from "./contracts/SimpleStorage.json";
 import getWeb3 from "./getWeb3";
-import BlockchainContext from './BlockchainContext.js';
+// import BlockchainContext from './BlockchainContext.js';
 
 import "./App.css";
 import ChildComponent from "./ChildComponent";
@@ -70,7 +70,7 @@ function App() {
 
   return (
     <div className="App">
-      <BlockchainContext.Provider value={{web3,accounts, contract}}>
+      {/* <BlockchainContext.Provider value={{web3,accounts, contract}}> */}
         <h1>Good to Go!</h1>
         <p>Your Truffle Box is installed and ready.</p>
         <h2>Smart Contract Example</h2>
@@ -83,7 +83,7 @@ function App() {
           Try changing the value stored on <strong>line 40</strong> of App.js.
         </p>
         <div>The stored value is: {storageValue}</div>
-      </BlockchainContext.Provider>
+      {/* </BlockchainContext.Provider> */}
     </div>
   );
 }

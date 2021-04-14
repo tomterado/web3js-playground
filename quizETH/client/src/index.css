@@ -1,0 +1,114 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+  /* position: relative; */
+  font-size: 1.5em;
+  text-transform: uppercase;
+  padding: 7px 20px;
+  left: 50%;
+  width: 200px;
+  /* margin-left: -100px; */
+  top: 50%;
+  border-radius: 10px;
+  color: white;
+  text-shadow: -1px -1px 1px rgba(0,0,0,0.8);
+  border: 5px solid transparent;
+  border-bottom-color: rgba(0,0,0,0.35);
+  background: hsla(260, 100%, 50%, 1);
+  cursor: pointer;
+  outline: 0 !important;
+
+  animation: pulse 1s infinite alternate;
+  transition: background 0.4s, border 0.2s, margin 0.2s;
+}
+
+button:hover {
+  background: hsla(220, 100%, 60%, 1);
+  margin-top: -1px;
+
+  animation: none;
+}
+
+button:active {
+  border-bottom-width: 0;
+  margin-top: 5px;
+}
+@keyframes pulse {
+  0% {
+    margin-top: 0px;
+  }
+  100% {
+    margin-top: 6px; 
+  } 
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.score-section {
+  /* display: flex;
+  font-size: 24px;
+  align-items: center; */
+}
+
+.question-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  width: 800px;
+  background-color: #F1F3F6;
+  border-radius: 16px;
+  flex-direction: column;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.quiz-container {
+  display: flex;
+  /* flex: 1;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; */
+  /* width: 100vh; */
+  /* background-color: red; */
+}
+
+.quiz-heading {
+  font-size: 1.5rem;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  /* width: 100vh; */
+  /* background-color: red; */
+}
+
+.quiz-text {
+  font-size: 1rem;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  /* width: 100vh; */
+  /* background-color: red; */
+}
+
+.answer-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  /* justify-content: center; */
+}
+
+.etherImg {
+  height: 120px;
+  width: 100px;
+  /* justify-content: center; */
+}
