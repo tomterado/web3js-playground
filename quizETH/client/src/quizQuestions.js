@@ -1,38 +1,29 @@
 export const questions = [
 		{
-			questionText: 'What is the capital of France?',
+			questionText: 'When was the ETH Whitepaper released?',
 			answerOptions: [
-				{ answerText: 'New York', isCorrect: false },
-				{ answerText: 'London', isCorrect: false },
-				{ answerText: 'Paris', isCorrect: true },
-				{ answerText: 'Dublin', isCorrect: false },
+				{ answerText: '2009', isCorrect: false },
+				{ answerText: '2012', isCorrect: false },
+				{ answerText: '2013', isCorrect: true },
+				{ answerText: '2015', isCorrect: false },
 			],
 		},
 		{
-			questionText: 'Who is CEO of Tesla?',
+			questionText: 'Who was the main technical contributor of ETH?',
 			answerOptions: [
-				{ answerText: 'Jeff Bezos', isCorrect: false },
-				{ answerText: 'Elon Musk', isCorrect: true },
-				{ answerText: 'Bill Gates', isCorrect: false },
+				{ answerText: 'Vitalik', isCorrect: false },
+				{ answerText: 'Gavin', isCorrect: true },
+				{ answerText: 'Joe', isCorrect: false },
 				{ answerText: 'Tony Stark', isCorrect: false },
 			],
 		},
-		// {
-		// 	questionText: 'The iPhone was created by which company?',
-		// 	answerOptions: [
-		// 		{ answerText: 'Apple', isCorrect: true },
-		// 		{ answerText: 'Intel', isCorrect: false },
-		// 		{ answerText: 'Amazon', isCorrect: false },
-		// 		{ answerText: 'Microsoft', isCorrect: false },
-		// 	],
-		// },
-		// {
-		// 	questionText: 'How many Harry Potter books are there?',
-		// 	answerOptions: [
-		// 		{ answerText: '1', isCorrect: false },
-		// 		{ answerText: '4', isCorrect: false },
-		// 		{ answerText: '6', isCorrect: false },
-		// 		{ answerText: '7', isCorrect: true },
-		// 	],
-		// },
+		{
+			questionText: 'The DAO hack happened when?',
+			answerOptions: [
+				{ answerText: '2016', isCorrect: true },
+				{ answerText: '2017', isCorrect: false },
+				{ answerText: '2018', isCorrect: false },
+				{ answerText: '2019', isCorrect: false },
+			],
+		},
 	];

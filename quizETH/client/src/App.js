@@ -1,38 +1,28 @@
 import React, { useState, useEffect } from "react";
 import QuizCertificate from "./contracts/QuizCertificate.json";
 import getWeb3 from "./getWeb3";
-// import BlockchainContext from './BlockchainContext.js';
 import {questions} from "./quizQuestions";
-import {etherImage} from "./Globals";
+import {etherImage, tryAgainButton} from "./Globals";
 
 import "./App.css";
-// import ChildComponent from "./ChildComponent";
 
 function App() {
+  // Quiz States
   const [currentQuestion, setCurrentQuestion] = useState(0);
 	const [showScore, setShowScore] = useState(false);
   const [score, setScore] = useState(0);
+  const [loadingTx, setLoadingTx] = useState(false);
+  const [successTx, setSuccessTx] = useState("");
 
-  
-  const handleAnswerOptionClick = (isCorrect) => {
-		if (isCorrect) {
-			setScore(score + 1);
-		}
-
-		const nextQuestion = currentQuestion + 1;
-		if (nextQuestion < questions.length) {
-			setCurrentQuestion(nextQuestion);
-		} else {
-			setShowScore(true);
-		}
-  };
-  
+  // Web3 States
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [ropsten, setRopsten] = useState(false)
   const [contract, setContract] = useState([]);
 
+  // Init Web3
   useEffect(() => {
+    //Init Web3 Instances
     const init = async() => {
       try {
         // Get network provider and web3 instance.
@@ -59,71 +49,78 @@ function App() {
         alert(
           `Failed to load web3, accounts, or contract. Check console for details.`,
         );
-        console.error(error);
+        // console.error(error);
       }
     }
     init();
   }, [ropsten]);
 
-  const getGradient = async () => {
+  useEffect(() => {
+  }, [web3, accounts, contract, showScore, loadingTx, successTx]);
 
-    // const getGradient2 = await contract.methods.getGradient({_gradientId: 0}).call();
-    // const getGradient2 = await contract.methods.owner().call();
+  const mintCertificate = async () => {
+    const txUrl = successTx ? "https://ropsten.etherscan.io/tx/" + successTx : null;
+
+    if (successTx) {
+      window.open(txUrl, "_blank");
+      return;
+    }
+    
+    setLoadingTx(true)
 
     if (typeof web3 !== 'undefined'
       && typeof accounts !== 'undefined'
       && typeof contract !== 'undefined') {
-      // getGradeintContractCall();
-      // const getGradient2 = await contract.methods.owner().call();
-      const test = await contract.methods.mintCertificate("555", "666").send({from: accounts[0]});
-      // const getGradient2 = await contract.methods.getGradient(2).call();
-      // const mintCertificate = await contract.methods.getGradient(2).call();
-      console.log(test);
-
+      await contract.methods.mintCertificate("555", "666").send({ from: accounts[0] }).then((res) => {
+        if (res) {
+          setLoadingTx(false)
+          setSuccessTx(res.transactionHash)
+        }
+      }).catch(() => {
+        setLoadingTx(false)
+        alert("Sorry something went wrong");
+      })
     }
-    
   }
 
-  useEffect(() => {
-    const load = async () => {
+  const handleAnswerOptionClick = (isCorrect) => {
+    if (isCorrect) {
+        setScore(score + 1);
     }
-    if(typeof web3 !== 'undefined' 
-       && typeof accounts !== 'undefined'
-       && typeof contract !== 'undefined') {
-      load();
-    }
-  }, [web3, accounts, contract, showScore]);
 
-  // if(typeof web3 === 'undefined') {
-  //   return <div>Loading Web3, accounts, and contract...</div>;
-  // }
+    const nextQuestion = currentQuestion + 1;
+        if (nextQuestion < questions.length) {
+            setCurrentQuestion(nextQuestion);
+        } else {
+            setShowScore(true);
+        }
+  };
+      
+  const mintButton = () => {
+    return (
+        <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
+          <p>You can now mint a QUIZ NFT certificate to show you are awesome</p>
+          <p>*** Tx may take 10-15sec <br/> Why not stretch? It's been a long day 🧘‍♂️ ***</p>
+          <button id="button" onClick={() => mintCertificate()}>
+            {score / questions.length === 1 & loadingTx && !successTx ? <div className="loadingspinner"></div> : <span>{successTx ? "View NFT" : "Mint"}</span>}
+          </button>
+        </div>
+    )
+  }
 
-  const tryAgainButton = (
-     <div style={{marginTop: 16}}>
-      <button id="button" onClick={() => {
-        setCurrentQuestion(0)
-        setShowScore(false)
-      }}>Try again</button>
+  const completedQuiz = (
+    <div className="question-section">
+      <img src={etherImage} className="etherImg"/>
+        You scored {score} out of {questions.length}
+      <div>
+        { score / questions.length === 1  ? mintButton() : tryAgainButton(setCurrentQuestion, setShowScore) }
       </div>
-  )
-
-  const mintButton = (
-    <div style={{ marginTop: 16 }}>
-      <p>You can now mint a QUIZ NFT certificate to show you are awesome</p>
-      <p>*** Ropsten Network ***</p>
-      <button id="button" onClick={() => getGradient()}>Mint</button>
-      </div>
+    </div>
   )
 
   return (
     <div className="App">
-      {showScore ? (
-        <div className="question-section">
-            <img src={etherImage} className="etherImg"/>
-            You scored {score} out of {questions.length}
-            { score / questions.length === 1 ? mintButton : tryAgainButton }
-          </div>
-        ) : (
+      {showScore ? completedQuiz : (
           <div className="quiz-container">
             <div className="question-section">
               <img src={etherImage} className="etherImg"/>
@@ -131,12 +128,15 @@ function App() {
                 History of ETH 💎 <br/>
               </div>
               <div className='quiz-text'>
+                <span>**Ropsten Network**<br/></span>
                 <span>Question {currentQuestion + 1}</span>/{questions.length}
               </div>
               <div className='quiz-text'>{questions[currentQuestion].questionText}</div>
               <div className="answer-section">
               {questions[currentQuestion].answerOptions.map((answerOption) => (
-                <button id="button" onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}>{answerOption.answerText}</button>
+                <button id="button" onClick={() =>handleAnswerOptionClick(answerOption.isCorrect)}>
+                  {answerOption.answerText}
+                </button>
               ))}
             </div>
             </div>
