@@ -67,11 +67,13 @@ function App() {
     }
     
     setLoadingTx(true)
+    // console.log("accounts[0]", accounts[0]);
+    // console.log('web3', web3);
 
     if (typeof web3 !== 'undefined'
       && typeof accounts !== 'undefined'
       && typeof contract !== 'undefined') {
-      await contract.methods.mintCertificate("555", "666").send({ from: accounts[0] }).then((res) => {
+      await contract.methods.mintCertificate("000", "111").send({ from: accounts[0] }).then((res) => {
         if (res) {
           setLoadingTx(false)
           setSuccessTx(res.transactionHash)
@@ -100,7 +102,7 @@ function App() {
     return (
         <div style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column" }}>
           <p>You can now mint a QUIZ NFT certificate to show you are awesome</p>
-          <p>*** Tx may take 10-15sec <br/> Why not stretch? It's been a long day 🧘‍♂️ ***</p>
+          <p>*** Tx may take 10-30sec <br/> Why not stretch? It's been a long day 🧘‍♂️ ***</p>
           <button id="button" onClick={() => mintCertificate()}>
             {score / questions.length === 1 & loadingTx && !successTx ? <div className="loadingspinner"></div> : <span>{successTx ? "View NFT" : "Mint"}</span>}
           </button>
